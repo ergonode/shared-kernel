@@ -9,16 +9,16 @@ declare(strict_types = 1);
 
 namespace Ergonode\SharedKernel\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ImportLineId;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\Visitor\DeserializationVisitorInterface;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
+use Ergonode\SharedKernel\Domain\AggregateId;
 
 /**
  */
-class ImportLineIdHandler implements SubscribingHandlerInterface
+class AggregateIdHandler implements SubscribingHandlerInterface
 {
     /**
      * @return array
@@ -31,14 +31,14 @@ class ImportLineIdHandler implements SubscribingHandlerInterface
         foreach ($formats as $format) {
             $methods[] = [
                 'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
-                'type' => ImportLineId::class,
+                'type' => AggregateId::class,
                 'format' => $format,
                 'method' => 'serialize',
             ];
 
             $methods[] = [
                 'direction' => GraphNavigatorInterface::DIRECTION_DESERIALIZATION,
-                'type' => ImportLineId::class,
+                'type' => AggregateId::class,
                 'format' => $format,
                 'method' => 'deserialize',
             ];
@@ -49,7 +49,7 @@ class ImportLineIdHandler implements SubscribingHandlerInterface
 
     /**
      * @param SerializationVisitorInterface $visitor
-     * @param ImportLineId                  $id
+     * @param AggregateId                   $attributeId
      * @param array                         $type
      * @param Context                       $context
      *
@@ -57,11 +57,11 @@ class ImportLineIdHandler implements SubscribingHandlerInterface
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
-        ImportLineId $id,
+        AggregateId $attributeId,
         array $type,
         Context $context
     ): string {
-        return $id->getValue();
+        return $attributeId->getValue();
     }
 
     /**
@@ -70,14 +70,14 @@ class ImportLineIdHandler implements SubscribingHandlerInterface
      * @param array                           $type
      * @param Context                         $context
      *
-     * @return ImportLineId
+     * @return AggregateId
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,
         $data,
         array $type,
         Context $context
-    ): ImportLineId {
-        return new ImportLineId($data);
+    ): AggregateId {
+        return new AggregateId($data);
     }
 }

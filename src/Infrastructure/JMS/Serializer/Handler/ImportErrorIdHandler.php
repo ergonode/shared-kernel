@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright © Bold Brand Commerce Sp. z o.o. All rights reserved.
  * See LICENSE.txt for license details.
@@ -8,7 +9,7 @@ declare(strict_types = 1);
 
 namespace Ergonode\SharedKernel\Infrastructure\JMS\Serializer\Handler;
 
-use Ergonode\SharedKernel\Domain\Aggregate\ExportProfileId;
+use Ergonode\SharedKernel\Domain\Aggregate\ImportErrorId;
 use JMS\Serializer\Context;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
@@ -17,7 +18,7 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
 /**
  */
-class ExportProfileIdHandler implements SubscribingHandlerInterface
+class ImportErrorIdHandler implements SubscribingHandlerInterface
 {
     /**
      * @return array
@@ -30,14 +31,14 @@ class ExportProfileIdHandler implements SubscribingHandlerInterface
         foreach ($formats as $format) {
             $methods[] = [
                 'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
-                'type' => ExportProfileId::class,
+                'type' => ImportErrorId::class,
                 'format' => $format,
                 'method' => 'serialize',
             ];
 
             $methods[] = [
                 'direction' => GraphNavigatorInterface::DIRECTION_DESERIALIZATION,
-                'type' => ExportProfileId::class,
+                'type' => ImportErrorId::class,
                 'format' => $format,
                 'method' => 'deserialize',
             ];
@@ -48,7 +49,7 @@ class ExportProfileIdHandler implements SubscribingHandlerInterface
 
     /**
      * @param SerializationVisitorInterface $visitor
-     * @param ExportProfileId               $id
+     * @param ImportErrorId                 $id
      * @param array                         $type
      * @param Context                       $context
      *
@@ -56,7 +57,7 @@ class ExportProfileIdHandler implements SubscribingHandlerInterface
      */
     public function serialize(
         SerializationVisitorInterface $visitor,
-        ExportProfileId $id,
+        ImportErrorId $id,
         array $type,
         Context $context
     ): string {
@@ -69,14 +70,14 @@ class ExportProfileIdHandler implements SubscribingHandlerInterface
      * @param array                           $type
      * @param Context                         $context
      *
-     * @return ExportProfileId
+     * @return ImportErrorId
      */
     public function deserialize(
         DeserializationVisitorInterface $visitor,
         $data,
         array $type,
         Context $context
-    ): ExportProfileId {
-        return new ExportProfileId($data);
+    ): ImportErrorId {
+        return new ImportErrorId($data);
     }
 }
