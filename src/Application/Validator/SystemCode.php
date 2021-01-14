@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class SystemCodeConstraint extends Constraint
+class SystemCode extends Constraint
 {
     public string $minMessage = 'System name is too short. It should have at least {{ limit }} characters.';
 

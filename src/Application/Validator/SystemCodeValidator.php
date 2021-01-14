@@ -13,16 +13,16 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class SystemCodeConstraintValidator extends ConstraintValidator
+class SystemCodeValidator extends ConstraintValidator
 {
     /**
      * @param mixed                        $value
-     * @param SystemCodeConstraint|Constraint $constraint
+     * @param SystemCode|Constraint $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof SystemCodeConstraint) {
-            throw new UnexpectedTypeException($constraint, SystemCodeConstraint::class);
+        if (!$constraint instanceof SystemCode) {
+            throw new UnexpectedTypeException($constraint, SystemCode::class);
         }
 
         if (null === $value || '' === $value) {
